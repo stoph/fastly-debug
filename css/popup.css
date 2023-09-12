@@ -7,9 +7,17 @@ body {
   padding: 10px;
 }
 
+#wrapper {
+  height: auto;
+}
+
 #header {
   text-align: center;
   margin-bottom: 10px;
+}
+#logo {
+  width: 100px;
+  margin: 0 auto;
 }
 #copy {
   display: none;
@@ -19,10 +27,7 @@ body {
   right: 15px;
   top: 25px;
 }
-#logo {
-  width: 100px;
-  margin: 0 auto;
-}
+
 #headers ul {
   margin-block-start: 2px;
 }
@@ -34,16 +39,14 @@ body {
   list-style-type: none;
   padding-inline-start: 10px;
 }
-.headers-list li > ul/*:not(:last-child)*/ {
+.headers-list li > ul {
   padding-inline-start: 10px;
-  /* border: 1px solid #ccc; */
 }
 .headers-list li > ul:last-child {
   margin-bottom: 10px;
 }
 .headers-name {
   font-weight: bold;
-  /* margin-bottom: 5px; */
 }
 .headers-value {
   font-style: italic;
@@ -52,5 +55,15 @@ body {
   list-style-type: none;
 }
 .headers-parsed-name {
+  font-style: italic;
+}
+
+#support {
+  margin-top: 10px;
+  text-align: center;
+}
+.support-text {
+  font-size: 12px;
+  color: #999;
   font-style: italic;
 }
