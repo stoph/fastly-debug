@@ -1,8 +1,6 @@
-![](img/logo.png)
-
 Chrome extension to display debug headers from Fastly
 
-When the icon is clicked, the extension injects the Fastly debug header ("Fastly-Debug:1") and loads the current URL. Once loaded, it extracts the additonal cache related headers...
+When the icon is clicked, the extension injects the Fastly debug header ("Fastly-Debug:1") and loads the current URL. Once loaded, it extracts the additional cache related headers...
 
 * "Age"
 * "Fastly-Debug-Path"
