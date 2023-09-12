@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Fastly Debug",
+  "version": "1.0",
+  "author": {
+    "name": "Christoph Khouri",
+    "email": "christoph.khouri@gmail.com"
+  },
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

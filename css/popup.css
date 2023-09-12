@@ -1,0 +1,53 @@
+body {
+  display: inline-block;
+  width: 500px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 5px;
+  padding: 10px;
+}
+
+#header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.copy-button {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+}
+#logo {
+  width: 100px;
+  margin: 0 auto;
+}
+#headers ul {
+  margin-block-start: 2px;
+}
+.no-headers {
+  font-style: italic;
+  text-align: center;
+}
+.headers-list {
+  list-style-type: none;
+  padding-inline-start: 10px;
+}
+.headers-list li > ul/*:not(:last-child)*/ {
+  padding-inline-start: 10px;
+  /* border: 1px solid #ccc; */
+}
+.headers-list li > ul:last-child {
+  margin-bottom: 10px;
+}
+.headers-name {
+  font-weight: bold;
+  /* margin-bottom: 5px; */
+}
+.headers-value {
+  font-style: italic;
+}
+.headers-parsed-list-item {
+  list-style-type: none;
+}
+.headers-parsed-name {
+  font-style: italic;
+}
