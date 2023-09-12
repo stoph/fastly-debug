@@ -1,6 +1,7 @@
-Chrome extension to display debug headers from Fastly
+# Fastly Debug
+## Chrome extension to display debug headers from Fastly
 
-When the icon is clicked, the extension injects the Fastly debug header ("Fastly-Debug:1") and loads the current URL. Once loaded, it extracts the additional cache related headers...
+When the icon is clicked, the extension injects the Fastly debug header ("Fastly-Debug:1") and loads the current URL. Once loaded, it extracts any additional Fastly cache related headers...
 
 * "Age"
 * "Fastly-Debug-Path"
