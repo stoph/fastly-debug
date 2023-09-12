@@ -48,9 +48,6 @@ body {
 .headers-name {
   font-weight: bold;
 }
-.headers-value {
-  font-style: italic;
-}
 .headers-parsed-list-item {
   list-style-type: none;
 }

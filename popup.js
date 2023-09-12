@@ -35,10 +35,21 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
               break;
 
             case "X-Served-By":
-              // Extract POP info from cacheName
-              popInfo = getPopInfo(headerValue);
-              if (popInfo) {
-                headerValue = `<a href="${popInfo.geo_url}">${popInfo.location}</a> [${headerValue}]`;
+              // Example: cache-ewr18126-EWR, cache-pdk-kpdk1780094-PDK";
+              popInfoArray = [];
+              headerValues = headerValue.split(',');
+              headerValues.forEach(cacheName => {
+                // Extract POP info
+                popInfo = getPopInfo(cacheName);
+                if (popInfo) {
+                  popInfoArray.push(`<a href="${popInfo.geo_url}">${popInfo.location}</a>`);
+                } else {
+                  popInfoArray.push(`Unknown POP`);
+                }
+              });
+
+              if (popInfoArray.length !== 0) {
+                headerValue = popInfoArray.join(", ") + ` [${headerValue}]`;
               } else {
                 headerValue = `Unknown POP [${headerValue}]`;
               }
