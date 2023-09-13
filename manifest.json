@@ -3,6 +3,7 @@
   "name": "Fastly Debug",
   "description": "Display Fastly debug headers",
   "version": "1.0",
+  "default_locale": "en",
   "author": {
     "name": "Christoph Khouri",
     "email": "christoph.khouri@gmail.com"

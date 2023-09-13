@@ -6,6 +6,11 @@ const pops = [
 ];
 let showCopyButton = false;
 
+// Populate button text
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  el.textContent = chrome.i18n.getMessage(el.getAttribute('data-i18n'));
+});
+
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
   let currentTab = tabs[0];
 
