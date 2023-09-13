@@ -14,6 +14,6 @@ When the icon is clicked, the extension injects the Fastly debug header ("Fastly
 
 It also parses the cache names to extract human readable Fastly POP locations and timestamps.
 
-![](img/screenshot_1.png)
+![](https://christophkhouri.com/fastly-debug/screenshot_1.png)
 
 *Disclaimer*: This extension is an independent project and is not affiliated with, endorsed by, or sponsored by Fastly, Inc. All trademarks and registered trademarks are the property of their respective owners.
