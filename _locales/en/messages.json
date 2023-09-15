@@ -1,8 +1,8 @@
 {
-  "copy_headers": {
+  "button_text": {
     "message": "Copy Headers"
   },
-  "support_this_project": {
+  "support_text": {
     "message": "Support this project"
   }
 }
