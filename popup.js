@@ -1,16 +1,33 @@
+// Track basic usage
+// No private or identifiable information is sent, 
+// only a random ID as the 'distinct id'
+sendToMixpanel("Popup Opened");
 
+// List of headers to display
+// TODO: Allow additional headers to be added by the user
+const interestingHeaders = [
+  "Surrogate-Control",
+  "Surrogate-Key",
+  "Age",
+  "Fastly-Debug-Path",
+  "Fastly-Debug-TTL",
+  "X-Served-By",
+  "X-Cache",
+  "X-Cache-Hits"
 ];
+
 // Import information about Fastly pop locations
 import { pops } from './pops.js';
 
 let showCopyButton = false;
 const copyButton = document.getElementById("copy");
 
-// Populate button text
+// Populate localized text
 document.querySelectorAll('[data-i18n]').forEach(el => {
   el.textContent = chrome.i18n.getMessage(el.getAttribute('data-i18n'));
 });
 
+// Main thread
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
   let currentTab = tabs[0];
 
@@ -23,8 +40,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
   })
   .then(response => {
     const headers = response.headers;
-    // // Debug view all headers
-    // console.log(response);
+    // // Debug: view all headers
+    // console.log("fetch() response", response);
     // for (let [key, value] of response.headers.entries()) {
     //   console.log(`${key}: ${value}`);
     // }
@@ -166,6 +183,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
       } else {
         displayText = `<div class="no-headers">No interesting headers found</div>`;
       }
+    } else {
+      displayText = `<div class="no-headers">URL failed to respond</div>`;
     }
 
     document.getElementById("headers").innerHTML = displayText;
@@ -233,6 +252,11 @@ function getPopInfo(cacheName) {
   return popInfo;
 }
 
+/**
+ * Copies the content of an element to the clipboard.
+ * @param {string} elementId - The ID of the element to copy.
+ * @returns {Promise<void>} - A promise that resolves when the content is successfully copied to the clipboard.
+ */
 async function copyToClipboard(elementId) {
   const headersDiv = document.getElementById(elementId);
   const range = document.createRange();
@@ -262,3 +286,56 @@ async function copyToClipboard(elementId) {
 copyButton.addEventListener("click", function() {
   copyToClipboard("headers");
 });
+
+/**
+ * Sends an event to Mixpanel.
+ * @param {string} eventName - The name of the event.
+ * @param {Object} eventProperties - Additional properties for the event (optional).
+ * @returns {Promise<void>} - A promise that resolves when the event is sent.
+ */
+async function sendToMixpanel(eventName, eventProperties = {}) {
+  const token = "22434d0c26e80542efe827d93664298d";
+  const sessionId = await getSessionId();
+
+  const eventData = {
+    event: eventName,
+    properties: {
+      token: token,
+      distinct_id: sessionId,
+      ...eventProperties
+    }
+  };
+  const base64Event = btoa(JSON.stringify(eventData));
+  const data = `data=${base64Event}`;
+
+  fetch("https://api.mixpanel.com/track/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: data
+  })
+
+}
+
+/**
+ * Retrieves the session ID from Chrome storage.
+ * If a session ID exists, it is returned. Otherwise, a new session ID is generated and stored.
+ * @returns {Promise<string>} The session ID.
+ */
+async function getSessionId() {
+  const sessionId = await new Promise((resolve, reject) => {
+    chrome.storage.sync.get(['sessionId'], result => {
+      resolve(result.sessionId);
+    });
+  });
+
+  if (sessionId) {
+    return sessionId;
+  } else {
+    const newSessionId = Math.random().toString(36).substr(2, 9);
+    chrome.storage.sync.set({ 'sessionId': newSessionId });
+    return newSessionId;
+  }
+}
+
